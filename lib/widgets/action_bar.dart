@@ -1,11 +1,17 @@
-import 'package:bus_eka/constants/m_colors.dart';
-import 'package:bus_eka/routers/app_router.dart';
-import 'package:bus_eka/services/local_services/auth_credentials.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class HomeActionBar extends StatelessWidget {
-  const HomeActionBar({Key? key}) : super(key: key);
+import 'package:bus_eka/constants/m_colors.dart';
+import 'package:bus_eka/data/models/user_model.dart';
+import 'package:bus_eka/routers/app_router.dart';
+import 'package:bus_eka/services/local_services/auth_credentials.dart';
+
+class ActionBar extends StatelessWidget {
+  final UserModel userModel;
+  const ActionBar({
+    Key? key,
+    required this.userModel,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,30 +30,36 @@ class HomeActionBar extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: TextField(
-              onChanged: (text) {},
-              onSubmitted: (text) {},
-              autofocus: false,
-              style: TextStyle(
-                fontSize: 14.sp,
-                color: MColors.darkClr,
-              ),
-              decoration: InputDecoration(
-                hintText: "Search...",
-                hintStyle: TextStyle(
-                  fontSize: 14.sp,
-                  color: MColors.darkClr.withOpacity(0.7),
-                ),
-                contentPadding: EdgeInsets.symmetric(horizontal: 5.w),
-                border: InputBorder.none,
-              ),
-              textInputAction: TextInputAction.search,
-            ),
+            child: userModel.isDriver
+                ? Container(
+                    padding: EdgeInsets.all(3.5.w),
+                    child: Text(
+                      "Bus Eka",
+                      style: TextStyle(
+                          color: MColors.mainClr,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  )
+                : GestureDetector(
+                    onTap: () =>
+                        Navigator.pushNamed(context, AppRouter.searchScreen),
+                    child: Container(
+                      padding: EdgeInsets.all(3.5.w),
+                      child: Text(
+                        "Search...",
+                        style: TextStyle(
+                          color: MColors.darkClr.withOpacity(0.7),
+                          fontSize: 14.sp,
+                        ),
+                      ),
+                    ),
+                  ),
           ),
           Container(
             color: MColors.darkClr.withOpacity(0.7),
             width: 0.3.w,
-            height: 3.h,
+            height: 3.5.h,
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 3.w),
@@ -60,9 +72,10 @@ class HomeActionBar extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.all(1.w),
                   color: MColors.mainClr,
-                  child: const Icon(
+                  child: Icon(
                     Icons.person_rounded,
                     color: MColors.contentsBgClr,
+                    size: 20.sp,
                   ),
                 ),
               ),

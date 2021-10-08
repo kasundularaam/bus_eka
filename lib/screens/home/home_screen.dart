@@ -1,12 +1,11 @@
 import 'package:bus_eka/constants/m_colors.dart';
-import 'package:bus_eka/widgets/booking_btn.dart';
-import 'package:bus_eka/widgets/bus_type_btns.dart';
-import 'package:bus_eka/widgets/map_view.dart';
-import 'package:bus_eka/widgets/home_action_bar.dart';
+import 'package:bus_eka/logic/driver_home_cubit/driver_home_cubit.dart';
+import 'package:bus_eka/screens/views/driver_home.dart';
+import 'package:bus_eka/screens/views/user_home.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 import 'package:bus_eka/screens/screen_args/home_screen_arg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeScreenArg arg;
@@ -20,29 +19,14 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: MColors.lightClr,
       body: SafeArea(
-          child: Stack(
-        children: [
-          const MapView(),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: EdgeInsets.all(2.w),
-              child: const BusTypeBtns(),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: EdgeInsets.all(2.w),
-              child: const BookingBtn(),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(5.w),
-            child: const HomeActionBar(),
-          ),
-        ],
-      )),
+          child: arg.user.isDriver
+              ? BlocProvider(
+                  create: (context) => DriverHomeCubit(),
+                  child: DriverHome(userModel: arg.user),
+                )
+              : UserHome(
+                  userModel: arg.user,
+                )),
     );
   }
 }

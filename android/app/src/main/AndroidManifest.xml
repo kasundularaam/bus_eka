@@ -2,6 +2,9 @@
     package="lk.buseka.bus_eka">
     <permission android:name="android.permission.INTERACT_ACROSS_USERS" android:protectionLevel="signature"/>
     <permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" android:protectionLevel="signature"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     
    <application
         android:label="bus_eka"
