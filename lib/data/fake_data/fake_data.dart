@@ -2,14 +2,14 @@ class FakeData {
   static const List<Map<String, dynamic>> users = [
     {
       "userId": "1",
-      "userEmail": "kasundularaam@gmail.com",
-      "userName": "Kasun Dulara",
+      "userEmail": "dinushi@gmail.com",
+      "userName": "Dinushi",
       "isDriver": false
     },
     {
       "userId": "2",
-      "userEmail": "berry@gmail.com",
-      "userName": "Berry",
+      "userEmail": "nawanjana@gmail.com",
+      "userName": "Nawanjana",
       "isDriver": true
     }
   ];

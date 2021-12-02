@@ -43,6 +43,18 @@ class AuthRepo {
     try {
       if (name.isNotEmpty && email.isNotEmpty && password.isNotEmpty) {
         Future.delayed(const Duration(seconds: 1));
+        UserModel? userModel;
+        List<UserModel> users = await getUsers();
+        for (UserModel user in users) {
+          if (user.userEmail == email && !user.isDriver) {
+            userModel = user;
+          }
+        }
+        if (userModel != null) {
+          AuthCredentials.addUser(userId: userModel.userId);
+        } else {
+          throw "can not create account!";
+        }
       } else {
         throw "some fields are empty";
       }
@@ -55,9 +67,10 @@ class AuthRepo {
       {required String email, required String password}) async {
     try {
       if (email.isNotEmpty && password.isNotEmpty) {
+        Future.delayed(const Duration(seconds: 1));
         UserModel? userModel;
         List<UserModel> users = await getUsers();
-        for (var user in users) {
+        for (UserModel user in users) {
           if (user.userEmail == email) {
             userModel = user;
           }
